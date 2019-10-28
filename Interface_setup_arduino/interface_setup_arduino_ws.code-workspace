@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.windows": {
+			"PATH": "C:\\Users\\s145793\\.platformio\\penv\\Scripts;C:\\Users\\s145793\\.platformio\\penv;C:\\Program Files (x86)\\Java\\jdk1.8.0_152\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\LLVM\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\Windows Kits\\8.0\\Windows Performance Toolkit\\;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Git\\bin;C:\\Program Files (x86)\\PuTTY\\;C:\\Program Files (x86)\\Yarn\\bin;C:\\Development\\android-sdk\\platform-tools;C:\\Development\\android-sdk\\tools;c:\\Python27\\;C:\\Program Files (x86)\\MySQL\\MySQL Utilities 1.6\\;C:\\Program Files (x86)\\PharosSystems\\Core;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\IBM\\SPSS\\Statistics\\25\\JRE\\bin;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Program Files\\processing-3.3.6\\;C:\\Users\\s145793\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\s145793\\AppData\\Local\\atom\\bin;C:\\Users\\s145793\\AppData\\Roaming\\npm;C:\\Users\\s145793\\AppData\\Local\\Yarn\\bin;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\s145793\\.platformio\\python27;C:\\Users\\s145793\\.platformio\\python27\\Scripts;C:\\Users\\s145793\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\processing-3.3.6\\;;C:\\Program Files (x86)\\Java\\jdk1.8.0_152\\;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\LLVM\\bin;C:\\Program Files\\Git\\cmd;C:\\Program Files (x86)\\Windows Kits\\8.0\\Windows Performance Toolkit\\;C:\\Program Files\\nodejs\\;C:\\Program Files (x86)\\Git\\bin;C:\\Program Files (x86)\\PuTTY\\;C:\\Program Files (x86)\\Yarn\\bin;C:\\Development\\android-sdk\\platform-tools;C:\\Development\\android-sdk\\tools;c:\\Python27\\;C:\\Program Files (x86)\\MySQL\\MySQL Utilities 1.6\\;C:\\Program Files (x86)\\PharosSystems\\Core;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\IBM\\SPSS\\Statistics\\25\\JRE\\bin;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Program Files\\processing-3.3.6\\;C:\\Users\\s145793\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\s145793\\AppData\\Local\\atom\\bin;C:\\Users\\s145793\\AppData\\Roaming\\npm;C:\\Users\\s145793\\AppData\\Local\\Yarn\\bin;C:\\Program Files\\Microsoft VS Code\\bin;C:\\Users\\s145793\\.platformio\\python27;C:\\Users\\s145793\\.platformio\\python27\\Scripts;C:\\Users\\s145793\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files\\processing-3.3.6\\;",
+			"PLATFORMIO_CALLER": "vscode"
+		}
+	}
+}

@@ -1,0 +1,6 @@
+==================== TO DO / NEXT STEP ======================
+
+- front 1 
+    scroll back through time
+    Bug
+        labelselector not always full 180 degrees? 
