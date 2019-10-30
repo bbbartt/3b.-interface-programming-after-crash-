@@ -34,6 +34,8 @@ float actHeight;
 
 float timeUpdateInterval;
 
+int pointerValue;
+
 
 
 
@@ -70,10 +72,10 @@ void draw(){
     // prevDetectedFront = detectedFront;
 
     if(detectedFront == 1){
-     frontOne();
+     frontOne(aPin[1]);
     }
     else if(detectedFront == 2){
-     frontTwo();
+     frontThree(eVal[0]);
     }
 
 

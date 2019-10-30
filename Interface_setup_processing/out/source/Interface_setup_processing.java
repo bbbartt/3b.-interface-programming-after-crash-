@@ -52,6 +52,8 @@ float actHeight;
 
 float timeUpdateInterval;
 
+int pointerValue;
+
 
 
 
@@ -88,10 +90,10 @@ public void draw(){
     // prevDetectedFront = detectedFront;
 
     if(detectedFront == 1){
-     frontOne();
+     frontOne(aPin[1]);
     }
     else if(detectedFront == 2){
-     frontTwo();
+     frontThree(eVal[0]);
     }
 
 
@@ -139,6 +141,17 @@ int[][] colorScheme = {
     {0xffFF4E47, 0xffE84181, 0xffFF53EB, 0xffC541E8, 0xffA747FF, 0xff5E47FF},            //scheme 2
     {0xff1793FF, 0xff15E5E8, 0xff24FF98, 0xff15E820, 0xff93FF17, 0xffEFFF53},            //scheme 3
     {0xffFFBA26, 0xffE89523, 0xffFF8C33, 0xffE85C23, 0xffFF4526, 0xffFF35B3}
+};
+
+
+
+String labelNames[][] = {
+    {"leaving home", "cooking", "coffee", "media"},
+    {"tv", "video", "news", "gaming"},
+    {"alone", "with friends", "with grandma", "with family"},
+    {"salad", "burned", "serving", "dinner party"}
+    
+    
 };
 class ChildApplet extends PApplet {
   public ChildApplet() {
@@ -215,6 +228,9 @@ class ChildApplet extends PApplet {
 
     text("labelselecocc", 200, 100);
     text(labelSelectorOccupied, 350, 100);
+
+    text("pointervalue", 200, 125);
+    text(pointerValue, 350, 125);
   }
 
 
@@ -286,7 +302,7 @@ long lastGenLabel;
 long generatorInterval;
 int generatedLabelNumber = 3;
 
-public void frontOne(){
+public void frontOne(int pointerValue){
 
 
     
@@ -296,7 +312,7 @@ public void frontOne(){
             if(singleDPress(0)){
                 boolean wasOverLabel = false;
                 for(int i = 0; i < labelEvent.length; i++){
-                    if(labelEvent[i].curOverEvent()){
+                    if(labelEvent[i].curOverEvent(pointerValue)){
                         wasOverLabel = true;
                         labelEvent[i].timeAgo = 360;
                     }
@@ -313,7 +329,7 @@ public void frontOne(){
             }
             break;
          case 1:
-            screenOne();
+            screenOne(pointerValue);
             // if(singleDPress(0)){
             //     labelSelectorOccupied = 0;
             // }         
@@ -324,7 +340,7 @@ public void frontOne(){
     //draw pointer
     fill(255, 0, 0);
     stroke(255);
-    arc(mm2Pix(90), (actHeight/2), mm2Pix(100), mm2Pix(100), radians(map(aPin[1], 0, 1023, 360, 0)), (radians(map(aPin[1], 0, 1023, 360, 0)+radians(40))));
+    arc(mm2Pix(90), (actHeight/2), mm2Pix(100), mm2Pix(100), radians(map(pointerValue, 0, 1023, 360, 0)), (radians(map(pointerValue, 0, 1023, 360, 0)+radians(40))));
     noStroke();
 
     //generate additional labels
@@ -341,12 +357,7 @@ public void labelGenerator(){
         labelEvent[generatedLabelNumber].certainty = random(0, 100);
         labelEvent[generatedLabelNumber].duration = random(10, 90);
         
-        print(random(0, colorScheme.length-1));
-        print("&");
-        print(colorScheme[0].length);
-        print("->");
-        println(hex(colorScheme[PApplet.parseInt(random(0, colorScheme.length-1))][PApplet.parseInt(random(0, colorScheme[0].length-1))]));
-  
+
         int tempColor = colorScheme[PApplet.parseInt(random(0, colorScheme.length-1))][PApplet.parseInt(random(0, colorScheme[0].length-1))];
         labelEvent[generatedLabelNumber].eventColor = tempColor;
         
@@ -377,7 +388,7 @@ public void screenZero(){
 }
 
 
-public void screenOne(){
+public void screenOne(int pointerValue){
     clearScreen();
 
         // print("labelSelectorOccupied: ");
@@ -423,9 +434,9 @@ public void screenOne(){
 
     if(singleDPress(0)){        //animate the label being selected for (var) timeinterval of double press -> insert label as LabelEvent
        // println(findLabel());                     //note on what label the cursor is located
-        int foundLabel = findLabel(); 
+        int foundLabel = findLabel(pointerValue); 
 
-       // print("foundLabel: " + foundLabel);
+        print("foundLabel: " + foundLabel);
         
         labelEvent[labelEvent.length-1].timeAgo = 0;
         labelEvent[labelEvent.length-1].eventColor = color(labelSelec[foundLabel].r, labelSelec[foundLabel].g, labelSelec[foundLabel].b);
@@ -461,16 +472,16 @@ public void screenOne(){
 }
 
 
-public int findLabel(){
+public int findLabel(int pointerValue){
     for(int i = 0; i < labelSelec.length; i++){
-        if((map(aPin[1], 0, 1023, 0, 360)-90) >= labelSelec[i].startPoint && (map(aPin[1], 0, 1023, 0, 360)-90) <= labelSelec[i].endPoint){
+        if((map(pointerValue, 0, 1023, 0, 360)-90) >= labelSelec[i].startPoint && (map(pointerValue, 0, 1023, 0, 360)-90) <= labelSelec[i].endPoint){
             return i;
         }
     }
 
     return 404;
 }
-//radians(map(aPin[1], 0, 1023, 360, 0))
+//radians(map(pointerValue, 0, 1023, 360, 0))
 
 //labelevents for logging waht events happend
 class LabelEvent{
@@ -511,8 +522,8 @@ class LabelEvent{
     }
 
 
-    public boolean curOverEvent(){
-        if(map(aPin[1], 0, 1023, 360, 0) >  (270-timeAgo) && map(aPin[1], 0, 1023, 360, 0) < (270-timeAgo)+duration){
+    public boolean curOverEvent(int pointerValue){
+        if(map(pointerValue, 0, 1023, 360, 0) >  (270-timeAgo) && map(pointerValue, 0, 1023, 360, 0) < (270-timeAgo)+duration){
             return true;
         }
         else{
@@ -596,12 +607,88 @@ class LabelEventSelector{
     }
 }
 
+public void frontThree(int threePointer){
+
+    int tempPointer = 0;
+
+    
+        tempPointer = PApplet.parseInt(map(threePointer, 0, 255, 0, 1023)) % 1023;
+    
+
+    // if(tempPointer > 510 && tempPointer < 750) tempPointer = 510;
+    // if(tempPointer < 1023 && tempPointer > 750) tempPointer = 0;
+    frontOne(tempPointer+270);
+    pointerValue = tempPointer;         //assign to general pointervalue in datawindow
+
+    //draw extra info
+    fill(0);
+    rect(width/2, 0, width/2, height);
+
+    if(curScreen == 0){
+    drawTime(tempPointer);
+    }
+    else if(curScreen ==1){
+    drawLabelNames(tempPointer+270);
+    }
+
+
+}
+
+
+
+public void drawTime(int tempPointer){
+    fill(255);
+    textSize(75);
+
+
+    curHours = (hour() + PApplet.parseInt(map(tempPointer, 0, 1023, 0, -12))) % 24;
+
+    String minuteString;
+    minuteString = str(minute());
+    if(minute() < 10) { minuteString = str(curMin) + "0";}
+
+
+
+    
+  pushMatrix();
+  translate(2*(width/3)+100, height/2);
+  rotate(3*(PI/2));
+      textAlign(CENTER, CENTER);
+
+  text(curHours + ":" + minuteString, 0, 0);
+  popMatrix(); 
+ 
+}
+
+
+
+public void drawLabelNames(int pointer){
+    String labelName = "no lablename found";
+
+
+    for(int i = 0; i < labelSelec.length; i++){
+        if((map(pointer, 0, 1023, 0, 360)-90) >= labelSelec[i].startPoint && (map(pointer, 0, 1023, 0, 360)-90) <= labelSelec[i].endPoint){
+           labelName = labelNames[currentSchemeNumber][i];
+        }
+    }
+
+      fill(255);
+    textSize(75);
+
+
+    pushMatrix();
+    translate(2*(width/3)+120, height/2-50);
+    rotate(3*(PI/2));
+    textAlign(CENTER, CENTER);
+    text(labelName, 0, 0);
+    popMatrix(); 
+}
 int pointerSpeed = 50; //define the speeed of the pointer
 
 
 int tempVal = 404;
 
-public void frontTwo(){
+public void frontTwo(int twoPointer){
     switch(curScreen) {
     	 case 0: 
             screenZero();
@@ -626,7 +713,7 @@ public void frontTwo(){
             fill(0);
             rect(width/2, 0, width/2, height);
 
-            drawTime();
+            drawTime(twoPointer);
 
 
             break;
@@ -671,24 +758,7 @@ public boolean curOverEventFrontTwo(int i){
 
 
 
-public void drawTime(){
-    fill(255);
-    textSize(75);
 
-
-    curHours = PApplet.parseInt(map(eVal[0], 0, 30, 17, 9));
-    curMin = 0;
-
-
-
-    
-  pushMatrix();
-  translate(2*(width/3)+100, height/2 +100);
-  rotate(3*(PI/2));
-  text(curHours + ":" + curMin +"0", 0, 0);
-  popMatrix(); 
- 
-}
 
 
 

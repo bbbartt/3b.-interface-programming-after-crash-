@@ -73,6 +73,9 @@ class ChildApplet extends PApplet {
 
     text("labelselecocc", 200, 100);
     text(labelSelectorOccupied, 350, 100);
+
+    text("pointervalue", 200, 125);
+    text(pointerValue, 350, 125);
   }
 
 

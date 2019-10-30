@@ -3,7 +3,7 @@ int pointerSpeed = 50; //define the speeed of the pointer
 
 int tempVal = 404;
 
-void frontTwo(){
+void frontTwo(int twoPointer){
     switch(curScreen) {
     	 case 0: 
             screenZero();
@@ -28,7 +28,7 @@ void frontTwo(){
             fill(0);
             rect(width/2, 0, width/2, height);
 
-            drawTime();
+            drawTime(twoPointer);
 
 
             break;
@@ -73,24 +73,7 @@ boolean curOverEventFrontTwo(int i){
 
 
 
-void drawTime(){
-    fill(255);
-    textSize(75);
 
-
-    curHours = int(map(eVal[0], 0, 30, 17, 9));
-    curMin = 0;
-
-
-
-    
-  pushMatrix();
-  translate(2*(width/3)+100, height/2 +100);
-  rotate(3*(PI/2));
-  text(curHours + ":" + curMin +"0", 0, 0);
-  popMatrix(); 
- 
-}
 
 
 

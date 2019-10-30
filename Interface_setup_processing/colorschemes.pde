@@ -5,3 +5,14 @@ color[][] colorScheme = {
     {#1793FF, #15E5E8, #24FF98, #15E820, #93FF17, #EFFF53},            //scheme 3
     {#FFBA26, #E89523, #FF8C33, #E85C23, #FF4526, #FF35B3}
 };
+
+
+
+String labelNames[][] = {
+    {"leaving home", "cooking", "coffee", "media"},
+    {"tv", "video", "news", "gaming"},
+    {"alone", "with friends", "with grandma", "with family"},
+    {"salad", "burned", "serving", "dinner party"}
+    
+    
+};
