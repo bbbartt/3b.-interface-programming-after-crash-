@@ -56,6 +56,7 @@ int generatedLabelNumber = 3;
 
 void frontOne(){
 
+
     
     switch(curScreen) {
     	 case 0: 
@@ -72,9 +73,9 @@ void frontOne(){
                     curScreen = 1;
                     currentSchemeNumber = 0;
                     labelSelectorOccupied = 0;
-                    // for(int i = 0; i < labelSelec.length; i++){  
-                    //     labelSelec[i].redrawSelector(); 
-                    // }               
+                    for(int i = 0; i < labelSelec.length-1; i++){  
+                        labelSelec[i].redrawSelector(); 
+                    }               
                     goBack = false;
                 }
             }
@@ -85,7 +86,7 @@ void frontOne(){
             //     labelSelectorOccupied = 0;
             // }         
             break;
-    }
+    } 
 
 
     //draw pointer
@@ -107,6 +108,10 @@ void labelGenerator(){
         labelEvent[generatedLabelNumber].eventColor = color(random(100, 255), random(100, 255), random(100, 255));
         labelEvent[generatedLabelNumber].certainty = random(0, 100);
         labelEvent[generatedLabelNumber].duration = random(10, 90);
+        
+
+        color tempColor = colorScheme[int(random(0, colorScheme.length-1))][int(random(0, colorScheme[0].length-1))];
+        labelEvent[generatedLabelNumber].eventColor = tempColor;
         
         lastGenLabel = millis();
         generatedLabelNumber++;
@@ -138,17 +143,46 @@ void screenZero(){
 void screenOne(){
     clearScreen();
 
+        // print("labelSelectorOccupied: ");
+        // print(labelSelectorOccupied);
+        // println();
+
     labelsDrawn = 0;
-    for(int i = 0; i < labelSelec.length; i++){
+    for(int i = 0; i < labelSelec.length-1; i++){
         labelSelec[i].r = (int) red(colorScheme[currentSchemeNumber][i]);
         labelSelec[i].g = (int) green(colorScheme[currentSchemeNumber][i]);
         labelSelec[i].b = (int) blue(colorScheme[currentSchemeNumber][i]);
         labelSelec[i].drawLabelSelector();
         labelsDrawn = labelsDrawn + 1;
+
+
+       /*if(0){ print("labelSelectorOccupied");
+        print(labelSelectorOccupied);
+        print("\t");
+        print("labelselecNumber:");
+        print(i);
+        print("\t");
+        print("certainty");
+        print(labelSelec[i].certainty);
+        print("\t");
+        print("startpoint");
+        print(labelSelec[i].startPoint);
+        print("\t");
+        print("endpoint");
+        print(labelSelec[i].endPoint);
+        println();
+       }
+       */
     }
+    
     labelSelec[labelSelec.length-1].redrawLastSelector();
     labelSelec[labelSelec.length-1].drawLabelSelector();
-
+    // print(labelSelec[labelSelec.length-1].startPoint);
+    // print("-");
+    // print(labelSelec[labelSelec.length-1].endPoint);
+    // println();
+    
+    // delay(100);
 
     if(singleDPress(0)){        //animate the label being selected for (var) timeinterval of double press -> insert label as LabelEvent
        // println(findLabel());                     //note on what label the cursor is located
@@ -170,6 +204,7 @@ void screenOne(){
 
     if(doubleDPress(0)){                            //redraw labelselector for next layer of control
             currentSchemeNumber++;
+        if(currentSchemeNumber > colorScheme.length-1) currentSchemeNumber = 0;       //prevent outofboundexception
         goBack = false;
         labelSelectorOccupied = 0;
         for(int i = 0; i < (labelSelec.length-2); i++){
@@ -261,51 +296,66 @@ class LabelEventSelector{
 
     LabelEventSelector(){
 
+        if(labelSelectorOccupied == 180){
+            println("labelselector full!");
+        }
+        else{
         startPoint = labelSelectorOccupied;
         certainty = random(0, (180-labelSelectorOccupied));
         endPoint = labelSelectorOccupied + certainty;
         labelSelectorOccupied = labelSelectorOccupied + certainty;
+        }
 
        }
 
     void redrawSelector(){
-  //      r = (int) red(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
-   //     g = (int) green(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
-    //    b = (int) blue(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
+      r = int(red(colorScheme[currentSchemeNumber][labelsDrawn]));
+      g = int(green(colorScheme[currentSchemeNumber][labelsDrawn]));
+      b = int(blue(colorScheme[currentSchemeNumber][labelsDrawn]));
 
-        startPoint = labelSelectorOccupied;
-        certainty = random(0, (180-labelSelectorOccupied));
-        endPoint = labelSelectorOccupied + certainty;
-        labelSelectorOccupied = labelSelectorOccupied + certainty;
+        if(labelSelectorOccupied == 180){
+            println("labelselector full!");
+        }
+        else{
+            startPoint = labelSelectorOccupied;
+            certainty = random(0, (180-labelSelectorOccupied));
+            endPoint = labelSelectorOccupied + certainty;
+            labelSelectorOccupied = labelSelectorOccupied + certainty;
 
-        r = (int) random(100, 255);
-        g = (int) random(100, 255);
-        b = (int) random(100, 255);
+            r = (int) random(100, 255);
+            g = (int) random(100, 255);
+            b = (int) random(100, 255);
+        }
+
     }
 
     void redrawLastSelector(){
         //make the last one fill everything
 
-    //    r = (int) red(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
-    //    g = (int) green(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
-    //    b = (int) blue(colorScheme[currentSchemeNumber][labelSelectorOccupied]);
+        r = int(red(colorScheme[currentSchemeNumber][labelSelec.length]));
+        g = int(green(colorScheme[currentSchemeNumber][labelSelec.length]));
+        b = int(blue(colorScheme[currentSchemeNumber][labelSelec.length]));
 
 
         labelSelec[labelSelec.length-1].startPoint = labelSelectorOccupied;
         labelSelec[labelSelec.length-1].certainty = 180-labelSelectorOccupied;
         labelSelec[labelSelec.length-1].endPoint = labelSelectorOccupied + labelSelec[labelSelec.length-1].certainty;
-        labelSelectorOccupied = labelSelectorOccupied + labelSelec[labelSelec.length-1].certainty;
+      //  labelSelectorOccupied = labelSelectorOccupied + labelSelec[labelSelec.length-1].certainty;
 
-        r = (int) 255;
-        g = (int) 0;
-        b = (int) 0;
+        // r = (int) 255;
+        // g = (int) 0;
+        // b = (int) 0;
 
-        println("redrewlastselector endpoint: " + labelSelec[labelSelec.length-1].endPoint);
+       // println("redrewlastselector endpoint: " + labelSelec[labelSelec.length-1].endPoint);
     }
 
     void drawLabelSelector(){
+        stroke(0);
+        strokeWeight(4);
         fill(r, g, b, 255);
-        arc(mm2Pix(90), (actHeight/2), mm2Pix(100), mm2Pix(100), radians(270-endPoint), radians(270-startPoint));
+        arc(mm2Pix(90), (actHeight/2), mm2Pix(100), mm2Pix(100), radians(270-endPoint), radians(270-startPoint), PIE);
+
+        noStroke();
     }
 }
 

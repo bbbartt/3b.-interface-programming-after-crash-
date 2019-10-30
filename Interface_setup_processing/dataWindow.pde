@@ -67,6 +67,12 @@ class ChildApplet extends PApplet {
 
     text("curScreen", 200, 50);
     text(curScreen, 350, 50);
+
+    text("curSchemeNumb", 200, 75);
+    text(currentSchemeNumber, 350, 75);
+
+    text("labelselecocc", 200, 100);
+    text(labelSelectorOccupied, 350, 100);
   }
 
 
